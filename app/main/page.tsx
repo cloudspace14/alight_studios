@@ -6,10 +6,38 @@ import { Globe, Layout, Smartphone, Zap, Rocket, DollarSign, Palette, TrendingUp
 
 export default function MainPage() {
   const [isLoaded, setIsLoaded] = useState(false)
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
 
   useEffect(() => {
     setIsLoaded(true)
   }, [])
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus("idle")
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
+
+      if (response.ok) {
+        setSubmitStatus("success")
+        setFormData({ name: "", email: "", message: "" })
+      } else {
+        setSubmitStatus("error")
+      }
+    } catch {
+      setSubmitStatus("error")
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <div className={`min-h-screen bg-[#0a0a0a] text-white transition-opacity duration-700 ${isLoaded ? "opacity-100" : "opacity-0"}`}>
@@ -255,29 +283,45 @@ export default function MainPage() {
               cloudspace098@gmail.com
             </a>
           </div>
-          <form className="mx-auto max-w-lg space-y-4" onSubmit={(e) => e.preventDefault()}>
+          <form className="mx-auto max-w-lg space-y-4" onSubmit={handleSubmit}>
             <input
               type="text"
               placeholder="Name"
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              required
               className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/50"
             />
             <input
               type="email"
               placeholder="Email"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              required
               className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/50"
             />
             <textarea
               placeholder="Message"
               rows={4}
+              value={formData.message}
+              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+              required
               className="w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/50"
             />
             <button
               type="submit"
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 py-3 font-medium transition-all hover:from-violet-400 hover:to-fuchsia-400 hover:shadow-lg hover:shadow-violet-500/25"
+              disabled={isSubmitting}
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 py-3 font-medium transition-all hover:from-violet-400 hover:to-fuchsia-400 hover:shadow-lg hover:shadow-violet-500/25 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Send className="h-4 w-4" />
-              Send Request
+              {isSubmitting ? "Sending..." : "Send Request"}
             </button>
+            {submitStatus === "success" && (
+              <p className="text-center text-sm text-green-400">Message sent successfully! We&apos;ll get back to you soon.</p>
+            )}
+            {submitStatus === "error" && (
+              <p className="text-center text-sm text-red-400">Failed to send message. Please try again or email us directly.</p>
+            )}
           </form>
         </div>
       </section>
