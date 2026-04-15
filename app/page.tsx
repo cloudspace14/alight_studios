@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { WebGLShader } from "@/components/ui/web-gl-shader"
 import { LiquidButton } from "@/components/ui/liquid-glass-button"
 
@@ -22,9 +23,11 @@ export default function Home() {
           </div>
 
           <div className="flex justify-center">
-            <LiquidButton className="text-white border rounded-full" size="xl">
-              {"Let's Go"}
-            </LiquidButton>
+            <Link href="/main">
+              <LiquidButton className="text-white border rounded-full" size="xl">
+                {"Let's Go"}
+              </LiquidButton>
+            </Link>
           </div>
         </main>
       </div>
