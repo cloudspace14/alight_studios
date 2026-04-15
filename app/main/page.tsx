@@ -3,13 +3,42 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { Globe, Layout, Smartphone, Zap, Rocket, DollarSign, Palette, TrendingUp, Mail, Send, ArrowRight, Star } from "lucide-react"
+import { LiquidButton } from "@/components/ui/liquid-glass-button"
 
 export default function MainPage() {
   const [isLoaded, setIsLoaded] = useState(false)
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
 
   useEffect(() => {
     setIsLoaded(true)
   }, [])
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus("idle")
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
+
+      if (response.ok) {
+        setSubmitStatus("success")
+        setFormData({ name: "", email: "", message: "" })
+      } else {
+        setSubmitStatus("error")
+      }
+    } catch {
+      setSubmitStatus("error")
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <div className={`min-h-screen bg-[#0a0a0a] text-white transition-opacity duration-700 ${isLoaded ? "opacity-100" : "opacity-0"}`}>
@@ -30,12 +59,11 @@ export default function MainPage() {
           <p className="mx-auto mb-8 max-w-2xl text-lg text-white/60">
             We build professional websites for businesses that want to grow online.
           </p>
-          <Link
-            href="#contact"
-            className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-medium text-black transition-all hover:bg-white/90 hover:shadow-lg hover:shadow-violet-500/25"
-          >
-            Get Started
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          <Link href="#pricing">
+            <LiquidButton size="lg" className="text-white border border-white/20 rounded-full">
+              Get Started
+              <ArrowRight className="h-4 w-4" />
+            </LiquidButton>
           </Link>
         </div>
       </section>
@@ -69,7 +97,7 @@ export default function MainPage() {
       </section>
 
       {/* Pricing Section */}
-      <section className="px-6 py-24 bg-gradient-to-b from-transparent via-violet-950/10 to-transparent">
+      <section id="pricing" className="px-6 py-24 bg-gradient-to-b from-transparent via-violet-950/10 to-transparent">
         <div className="mx-auto max-w-6xl">
           <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl">Simple Pricing</h2>
           <p className="mx-auto mb-16 max-w-2xl text-center text-white/60">
@@ -101,11 +129,10 @@ export default function MainPage() {
                   Normal delivery speed
                 </li>
               </ul>
-              <Link
-                href="#contact"
-                className="block w-full rounded-full border border-white/20 py-3 text-center font-medium transition-all hover:bg-white/10"
-              >
-                Get Started
+              <Link href="#contact" className="block">
+                <LiquidButton size="lg" className="w-full text-white border border-white/20 rounded-full">
+                  Get Started
+                </LiquidButton>
               </Link>
             </div>
 
@@ -135,11 +162,10 @@ export default function MainPage() {
                   Professional design
                 </li>
               </ul>
-              <Link
-                href="#contact"
-                className="block w-full rounded-full border border-white/20 py-3 text-center font-medium transition-all hover:bg-white/10"
-              >
-                Get Started
+              <Link href="#contact" className="block">
+                <LiquidButton size="lg" className="w-full text-white border border-white/20 rounded-full">
+                  Get Started
+                </LiquidButton>
               </Link>
             </div>
 
@@ -174,11 +200,10 @@ export default function MainPage() {
                   Highest priority delivery
                 </li>
               </ul>
-              <Link
-                href="#contact"
-                className="block w-full rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 py-3 text-center font-medium transition-all hover:from-violet-400 hover:to-fuchsia-400 hover:shadow-lg hover:shadow-violet-500/25"
-              >
-                Get Started
+              <Link href="#contact" className="block">
+                <LiquidButton size="lg" className="w-full text-white bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-full">
+                  Get Started
+                </LiquidButton>
               </Link>
             </div>
           </div>
@@ -255,29 +280,46 @@ export default function MainPage() {
               cloudspace098@gmail.com
             </a>
           </div>
-          <form className="mx-auto max-w-lg space-y-4" onSubmit={(e) => e.preventDefault()}>
+          <form className="mx-auto max-w-lg space-y-4" onSubmit={handleSubmit}>
             <input
               type="text"
               placeholder="Name"
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              required
               className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/50"
             />
             <input
               type="email"
               placeholder="Email"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              required
               className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/50"
             />
             <textarea
               placeholder="Message"
               rows={4}
+              value={formData.message}
+              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+              required
               className="w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/50"
             />
-            <button
+            <LiquidButton
               type="submit"
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 py-3 font-medium transition-all hover:from-violet-400 hover:to-fuchsia-400 hover:shadow-lg hover:shadow-violet-500/25"
+              disabled={isSubmitting}
+              size="lg"
+              className="w-full text-white bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-xl"
             >
               <Send className="h-4 w-4" />
-              Send Request
-            </button>
+              {isSubmitting ? "Sending..." : "Send Request"}
+            </LiquidButton>
+            {submitStatus === "success" && (
+              <p className="text-center text-sm text-green-400">Message sent successfully! We&apos;ll get back to you soon.</p>
+            )}
+            {submitStatus === "error" && (
+              <p className="text-center text-sm text-red-400">Failed to send message. Please try again or email us directly.</p>
+            )}
           </form>
         </div>
       </section>
@@ -289,12 +331,11 @@ export default function MainPage() {
         <div className="absolute -right-40 bottom-0 h-80 w-80 rounded-full bg-fuchsia-500/30 blur-[100px]" />
         <div className="relative z-10 text-center">
           <h2 className="mb-6 text-3xl font-bold md:text-5xl">Ready to Build Your Website?</h2>
-          <Link
-            href="#contact"
-            className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-medium text-black transition-all hover:bg-white/90 hover:shadow-xl hover:shadow-violet-500/25"
-          >
-            Start Now
-            <ArrowRight className="h-4 w-4" />
+          <Link href="#contact">
+            <LiquidButton size="xl" className="text-white border border-white/20 rounded-full">
+              Start Now
+              <ArrowRight className="h-4 w-4" />
+            </LiquidButton>
           </Link>
         </div>
       </section>
