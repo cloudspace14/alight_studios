@@ -14,7 +14,7 @@ export async function POST(request: Request) {
       );
     }
 
-    await resend.emails.send({
+    const result = await resend.emails.send({
       from: 'Alight Studios <onboarding@resend.dev>',
       to: 'cloudspace098@gmail.com',
       subject: `New Contact Request from ${name}`,
@@ -28,9 +28,19 @@ export async function POST(request: Request) {
       replyTo: email,
     });
 
+    console.log('[v0] Resend API result:', JSON.stringify(result));
+
+    if (result.error) {
+      console.error('[v0] Resend error:', result.error);
+      return NextResponse.json(
+        { error: result.error.message },
+        { status: 400 }
+      );
+    }
+
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Email send error:', error);
+    console.error('[v0] Email send error:', error);
     return NextResponse.json(
       { error: 'Failed to send email' },
       { status: 500 }
