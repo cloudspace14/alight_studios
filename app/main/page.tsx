@@ -59,7 +59,7 @@ export default function MainPage() {
             We build professional websites for businesses that want to grow online.
           </p>
           <Link
-            href="#contact"
+            href="#pricing"
             className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-medium text-black transition-all hover:bg-white/90 hover:shadow-lg hover:shadow-violet-500/25"
           >
             Get Started
@@ -97,7 +97,7 @@ export default function MainPage() {
       </section>
 
       {/* Pricing Section */}
-      <section className="px-6 py-24 bg-gradient-to-b from-transparent via-violet-950/10 to-transparent">
+      <section id="pricing" className="px-6 py-24 bg-gradient-to-b from-transparent via-violet-950/10 to-transparent">
         <div className="mx-auto max-w-6xl">
           <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl">Simple Pricing</h2>
           <p className="mx-auto mb-16 max-w-2xl text-center text-white/60">
