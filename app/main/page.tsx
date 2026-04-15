@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { Globe, Layout, Smartphone, Zap, Rocket, DollarSign, Palette, TrendingUp, Mail, Send, ArrowRight, Star } from "lucide-react"
+import { LiquidButton } from "@/components/ui/liquid-glass-button"
 
 export default function MainPage() {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -58,12 +59,11 @@ export default function MainPage() {
           <p className="mx-auto mb-8 max-w-2xl text-lg text-white/60">
             We build professional websites for businesses that want to grow online.
           </p>
-          <Link
-            href="#pricing"
-            className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-medium text-black transition-all hover:bg-white/90 hover:shadow-lg hover:shadow-violet-500/25"
-          >
-            Get Started
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          <Link href="#pricing">
+            <LiquidButton size="lg" className="text-white border border-white/20 rounded-full">
+              Get Started
+              <ArrowRight className="h-4 w-4" />
+            </LiquidButton>
           </Link>
         </div>
       </section>
@@ -129,11 +129,10 @@ export default function MainPage() {
                   Normal delivery speed
                 </li>
               </ul>
-              <Link
-                href="#contact"
-                className="block w-full rounded-full border border-white/20 py-3 text-center font-medium transition-all hover:bg-white/10"
-              >
-                Get Started
+              <Link href="#contact" className="block">
+                <LiquidButton size="lg" className="w-full text-white border border-white/20 rounded-full">
+                  Get Started
+                </LiquidButton>
               </Link>
             </div>
 
@@ -163,11 +162,10 @@ export default function MainPage() {
                   Professional design
                 </li>
               </ul>
-              <Link
-                href="#contact"
-                className="block w-full rounded-full border border-white/20 py-3 text-center font-medium transition-all hover:bg-white/10"
-              >
-                Get Started
+              <Link href="#contact" className="block">
+                <LiquidButton size="lg" className="w-full text-white border border-white/20 rounded-full">
+                  Get Started
+                </LiquidButton>
               </Link>
             </div>
 
@@ -202,11 +200,10 @@ export default function MainPage() {
                   Highest priority delivery
                 </li>
               </ul>
-              <Link
-                href="#contact"
-                className="block w-full rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 py-3 text-center font-medium transition-all hover:from-violet-400 hover:to-fuchsia-400 hover:shadow-lg hover:shadow-violet-500/25"
-              >
-                Get Started
+              <Link href="#contact" className="block">
+                <LiquidButton size="lg" className="w-full text-white bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-full">
+                  Get Started
+                </LiquidButton>
               </Link>
             </div>
           </div>
@@ -308,14 +305,15 @@ export default function MainPage() {
               required
               className="w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/50"
             />
-            <button
+            <LiquidButton
               type="submit"
               disabled={isSubmitting}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 py-3 font-medium transition-all hover:from-violet-400 hover:to-fuchsia-400 hover:shadow-lg hover:shadow-violet-500/25 disabled:opacity-50 disabled:cursor-not-allowed"
+              size="lg"
+              className="w-full text-white bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-xl"
             >
               <Send className="h-4 w-4" />
               {isSubmitting ? "Sending..." : "Send Request"}
-            </button>
+            </LiquidButton>
             {submitStatus === "success" && (
               <p className="text-center text-sm text-green-400">Message sent successfully! We&apos;ll get back to you soon.</p>
             )}
@@ -333,12 +331,11 @@ export default function MainPage() {
         <div className="absolute -right-40 bottom-0 h-80 w-80 rounded-full bg-fuchsia-500/30 blur-[100px]" />
         <div className="relative z-10 text-center">
           <h2 className="mb-6 text-3xl font-bold md:text-5xl">Ready to Build Your Website?</h2>
-          <Link
-            href="#contact"
-            className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-medium text-black transition-all hover:bg-white/90 hover:shadow-xl hover:shadow-violet-500/25"
-          >
-            Start Now
-            <ArrowRight className="h-4 w-4" />
+          <Link href="#contact">
+            <LiquidButton size="xl" className="text-white border border-white/20 rounded-full">
+              Start Now
+              <ArrowRight className="h-4 w-4" />
+            </LiquidButton>
           </Link>
         </div>
       </section>
