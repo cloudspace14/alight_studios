@@ -8,10 +8,10 @@ export default function Home() {
       <div className="relative border border-[#27272a] p-2 w-full mx-auto max-w-3xl">
         <main className="relative border border-[#27272a] py-10 overflow-hidden">
           <h1 className="mb-3 text-white text-center text-7xl font-extrabold tracking-tighter md:text-[clamp(2rem,8vw,7rem)]">
-            Design is Everything
+            This is alight Studios
           </h1>
           <p className="text-white/60 px-6 text-center text-xs md:text-sm lg:text-lg">
-            Unleashing creativity through bold visuals, seamless interfaces, and limitless possibilities.
+            Expand your business by creating a website with us, just Explain and we'll take care.
           </p>
           <div className="my-8 flex items-center justify-center gap-1">
             <span className="relative flex h-3 w-3 items-center justify-center">
