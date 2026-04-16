@@ -61,10 +61,8 @@ function ElegantShape({
             "absolute inset-0 rounded-full",
             "bg-gradient-to-r to-transparent",
             gradient,
-            "backdrop-blur-[2px] border-2 border-white/[0.15]",
-            "shadow-[0_8px_32px_0_rgba(255,255,255,0.1)]",
-            "after:absolute after:inset-0 after:rounded-full",
-            "after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)]"
+            "border border-white/[0.08]",
+            "shadow-[0_8px_32px_0_rgba(255,255,255,0.05)]"
           )}
         />
       </motion.div>
@@ -84,8 +82,8 @@ export default function MainPage() {
       {/* Background gradient overlay */}
       <div className="fixed inset-0 bg-gradient-to-br from-indigo-500/[0.05] via-transparent to-rose-500/[0.05] blur-3xl pointer-events-none" />
       
-      {/* Elegant floating shapes */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+      {/* Elegant floating shapes - z-0 keeps them behind content */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <ElegantShape
           delay={0.3}
           width={600}
@@ -309,13 +307,14 @@ export default function MainPage() {
           </p>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {[
-              { title: "Tech Startup", tag: "Startup", color: "from-blue-500/20 to-cyan-500/20" },
-              { title: "Local Business", tag: "Business", color: "from-amber-500/20 to-orange-500/20" },
-              { title: "Creative Portfolio", tag: "Portfolio", color: "from-violet-500/20 to-fuchsia-500/20" },
-              { title: "E-Commerce Store", tag: "Business", color: "from-emerald-500/20 to-teal-500/20" },
+              { title: "Tech Startup", tag: "Startup", color: "from-blue-500/20 to-cyan-500/20", href: "/work/tech-startup" },
+              { title: "Local Business", tag: "Business", color: "from-amber-500/20 to-orange-500/20", href: "/work/local-business" },
+              { title: "Creative Portfolio", tag: "Portfolio", color: "from-violet-500/20 to-fuchsia-500/20", href: "/work/creative-portfolio" },
+              { title: "E-Commerce Store", tag: "Business", color: "from-emerald-500/20 to-teal-500/20", href: "/work/e-commerce" },
             ].map((project, i) => (
-              <div
+              <Link
                 key={i}
+                href={project.href}
                 className="group relative aspect-video cursor-pointer overflow-hidden rounded-2xl border border-white/10 bg-white/5"
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${project.color} transition-transform duration-500 group-hover:scale-110`} />
@@ -325,7 +324,7 @@ export default function MainPage() {
                 <div className="absolute bottom-4 left-4">
                   <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium backdrop-blur-sm">{project.tag}</span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
