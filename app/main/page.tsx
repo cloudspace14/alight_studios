@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
-import { Globe, Layout, Smartphone, Zap, Rocket, DollarSign, Palette, TrendingUp, Mail, Send, ArrowRight, Star } from "lucide-react"
+import { Globe, Layout, Smartphone, Zap, Rocket, DollarSign, Palette, TrendingUp, Mail, Send, ArrowRight, Star, Loader2 } from "lucide-react"
+import { RatingInteraction } from "@/components/ui/emoji-rating"
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
@@ -72,10 +73,26 @@ function ElegantShape({
 
 export default function MainPage() {
   const [isLoaded, setIsLoaded] = useState(false)
+  const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" })
 
   useEffect(() => {
     setIsLoaded(true)
   }, [])
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setFormStatus("loading")
+    
+    try {
+      // Simulate form submission - replace with actual API call
+      await new Promise((_, reject) => setTimeout(() => reject(new Error("Failed")), 1500))
+      setFormStatus("success")
+      setFormData({ name: "", email: "", message: "" })
+    } catch {
+      setFormStatus("error")
+    }
+  }
 
   return (
     <div className={`min-h-screen bg-[#030303] text-white transition-opacity duration-700 ${isLoaded ? "opacity-100" : "opacity-0"}`}>
@@ -369,30 +386,70 @@ export default function MainPage() {
               cloudspace098@gmail.com
             </a>
           </div>
-          <form className="mx-auto max-w-lg space-y-4" onSubmit={(e) => e.preventDefault()}>
+          <form className="mx-auto max-w-lg space-y-4" onSubmit={handleSubmit}>
             <input
               type="text"
               placeholder="Name"
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/50"
+              required
             />
             <input
               type="email"
               placeholder="Email"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/50"
+              required
             />
             <textarea
               placeholder="Message"
               rows={4}
+              value={formData.message}
+              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               className="w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/50"
+              required
             />
             <button
               type="submit"
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 py-3 font-medium transition-all hover:from-violet-400 hover:to-fuchsia-400 hover:shadow-lg hover:shadow-violet-500/25"
+              disabled={formStatus === "loading"}
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 py-3 font-medium transition-all hover:from-violet-400 hover:to-fuchsia-400 hover:shadow-lg hover:shadow-violet-500/25 disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              <Send className="h-4 w-4" />
-              Send Request
+              {formStatus === "loading" ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Sending...
+                </>
+              ) : (
+                <>
+                  <Send className="h-4 w-4" />
+                  Send Request
+                </>
+              )}
             </button>
+            
+            {/* Status messages */}
+            {formStatus === "success" && (
+              <p className="text-center text-sm text-emerald-400">
+                Request sent successfully! We&apos;ll get back to you soon.
+              </p>
+            )}
+            {formStatus === "error" && (
+              <p className="text-center text-sm text-red-400">
+                Failed to send request. Please try again or contact cloudspace098@gmail.com
+              </p>
+            )}
           </form>
+          
+          {/* How was your experience rating */}
+          <div className="mt-12 flex flex-col items-center gap-4">
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/40">
+              How was your experience?
+            </p>
+            <RatingInteraction />
+            <div className="mt-4 h-px w-24 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+          </div>
         </div>
       </section>
 
