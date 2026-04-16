@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
-import { Globe, Layout, Smartphone, Zap, Rocket, DollarSign, Palette, TrendingUp, Mail, Send, ArrowRight, Star } from "lucide-react"
+import { Globe, Layout, Smartphone, Zap, Rocket, DollarSign, Palette, TrendingUp, Mail, Send, ArrowRight, Star, Loader2, Check, Crown } from "lucide-react"
+import { RatingInteraction } from "@/components/ui/emoji-rating"
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
@@ -72,10 +73,26 @@ function ElegantShape({
 
 export default function MainPage() {
   const [isLoaded, setIsLoaded] = useState(false)
+  const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" })
 
   useEffect(() => {
     setIsLoaded(true)
   }, [])
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setFormStatus("loading")
+    
+    try {
+      // Simulate form submission - replace with actual API call
+      await new Promise((_, reject) => setTimeout(() => reject(new Error("Failed")), 1500))
+      setFormStatus("success")
+      setFormData({ name: "", email: "", message: "" })
+    } catch {
+      setFormStatus("error")
+    }
+  }
 
   return (
     <div className={`min-h-screen bg-[#030303] text-white transition-opacity duration-700 ${isLoaded ? "opacity-100" : "opacity-0"}`}>
@@ -188,108 +205,186 @@ export default function MainPage() {
           <p className="mx-auto mb-16 max-w-2xl text-center text-white/60">
             Transparent pricing with no hidden fees
           </p>
-          <div className="grid gap-8 md:grid-cols-3">
+          <div className="grid gap-8 lg:grid-cols-3 items-start">
             {/* Basic Plan */}
-            <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-8 transition-all hover:border-white/20">
+            <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-8 transition-all duration-300 hover:border-white/20 hover:bg-white/[0.05] hover:shadow-lg hover:shadow-violet-500/5 hover:-translate-y-1">
               <h3 className="mb-2 text-xl font-semibold">Basic Plan</h3>
               <div className="mb-6">
-                <span className="text-4xl font-bold">₹250</span>
+                <span className="text-4xl font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">₹250</span>
                 <span className="text-white/60"> one-time</span>
               </div>
               <ul className="mb-8 space-y-3 text-sm text-white/70">
-                <li className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-white/40" />
+                <li className="flex items-center gap-3">
+                  <Check className="h-4 w-4 text-white/40 flex-shrink-0" />
                   Subdomain only
                 </li>
-                <li className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-white/40" />
+                <li className="flex items-center gap-3">
+                  <Check className="h-4 w-4 text-white/40 flex-shrink-0" />
                   Basic design
                 </li>
-                <li className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-white/40" />
+                <li className="flex items-center gap-3">
+                  <Check className="h-4 w-4 text-white/40 flex-shrink-0" />
                   No database
                 </li>
-                <li className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-white/40" />
+                <li className="flex items-center gap-3">
+                  <Check className="h-4 w-4 text-white/40 flex-shrink-0" />
                   Normal delivery speed
+                </li>
+                <li className="flex items-center gap-3">
+                  <Check className="h-4 w-4 text-white/40 flex-shrink-0" />
+                  Mobile responsive (basic)
+                </li>
+                <li className="flex items-center gap-3">
+                  <Check className="h-4 w-4 text-white/40 flex-shrink-0" />
+                  Up to 7 pages website
                 </li>
               </ul>
               <Link
                 href="#contact"
-                className="block w-full rounded-full border border-white/20 py-3 text-center font-medium transition-all hover:bg-white/10"
+                className="block w-full rounded-full border border-white/20 py-3 text-center font-medium transition-all duration-300 hover:bg-white/10 hover:border-white/30"
               >
                 Get Started
               </Link>
             </div>
 
-            {/* Pro Plan */}
-            <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-8 transition-all hover:border-white/20">
+            {/* Pro Plan - Most Popular */}
+            <div className="group relative overflow-hidden rounded-2xl border-2 border-blue-500/50 bg-gradient-to-b from-blue-950/20 to-indigo-950/10 p-8 shadow-xl shadow-blue-500/10 transition-all duration-300 hover:border-blue-400/70 hover:shadow-blue-500/20 hover:-translate-y-1">
+              <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-blue-500/20 blur-3xl" />
+              <div className="absolute -bottom-8 -left-8 h-24 w-24 rounded-full bg-indigo-500/20 blur-3xl" />
+              <div className="absolute top-4 right-4">
+                <span className="rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 px-3 py-1 text-xs font-semibold text-white shadow-lg">Most Popular</span>
+              </div>
               <h3 className="mb-2 text-xl font-semibold">Pro Plan</h3>
               <div className="mb-6">
-                <span className="text-4xl font-bold">₹250</span>
+                <span className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">₹250</span>
                 <span className="text-white/60"> + ₹75 first month</span>
                 <p className="mt-1 text-sm text-white/50">₹60/month maintenance</p>
               </div>
               <ul className="mb-8 space-y-3 text-sm text-white/70">
-                <li className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-violet-400" />
+                <li className="flex items-center gap-3">
+                  <Check className="h-4 w-4 text-blue-400 flex-shrink-0" />
                   Custom domain support
                 </li>
-                <li className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-violet-400" />
+                <li className="flex items-center gap-3">
+                  <Check className="h-4 w-4 text-blue-400 flex-shrink-0" />
                   Database integration
                 </li>
-                <li className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-violet-400" />
+                <li className="flex items-center gap-3">
+                  <Check className="h-4 w-4 text-blue-400 flex-shrink-0" />
                   Faster delivery priority
                 </li>
-                <li className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-violet-400" />
+                <li className="flex items-center gap-3">
+                  <Check className="h-4 w-4 text-blue-400 flex-shrink-0" />
                   Professional design
+                </li>
+                <li className="flex items-center gap-3">
+                  <Check className="h-4 w-4 text-blue-400 flex-shrink-0" />
+                  Up to 20 pages website
+                </li>
+                <li className="flex items-center gap-3">
+                  <Check className="h-4 w-4 text-blue-400 flex-shrink-0" />
+                  Basic SEO setup
+                </li>
+                <li className="flex items-center gap-3">
+                  <Check className="h-4 w-4 text-blue-400 flex-shrink-0" />
+                  Contact form integration
+                </li>
+                <li className="flex items-center gap-3">
+                  <Check className="h-4 w-4 text-blue-400 flex-shrink-0" />
+                  Basic animations / transitions
+                </li>
+                <li className="flex items-center gap-3">
+                  <Check className="h-4 w-4 text-blue-400 flex-shrink-0" />
+                  1 revision after delivery
+                </li>
+                <li className="flex items-center gap-3">
+                  <Check className="h-4 w-4 text-blue-400 flex-shrink-0" />
+                  Email support
                 </li>
               </ul>
               <Link
                 href="#contact"
-                className="block w-full rounded-full border border-white/20 py-3 text-center font-medium transition-all hover:bg-white/10"
+                className="block w-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 py-3 text-center font-medium transition-all duration-300 hover:from-blue-400 hover:to-indigo-400 hover:shadow-lg hover:shadow-blue-500/25"
               >
                 Get Started
               </Link>
             </div>
 
-            {/* Premium Plan */}
-            <div className="group relative overflow-hidden rounded-2xl border-2 border-violet-500/50 bg-gradient-to-b from-violet-950/30 to-violet-950/10 p-8 shadow-xl shadow-violet-500/20 transition-all hover:border-violet-400/70 hover:shadow-violet-500/30">
-              <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-violet-500/20 blur-3xl" />
-              <div className="absolute -bottom-8 -left-8 h-24 w-24 rounded-full bg-fuchsia-500/20 blur-3xl" />
-              <div className="mb-4 flex items-center gap-2">
-                <h3 className="text-xl font-semibold">Premium Plan</h3>
-                <span className="rounded-full bg-violet-500/20 px-3 py-1 text-xs font-medium text-violet-300">Popular</span>
+            {/* Premium Plan - Highlighted */}
+            <div className="group relative overflow-hidden rounded-2xl border-2 border-violet-500/50 bg-gradient-to-b from-violet-950/30 to-fuchsia-950/10 p-8 lg:p-10 shadow-2xl shadow-violet-500/20 transition-all duration-300 hover:border-violet-400/70 hover:shadow-violet-500/30 hover:-translate-y-1 lg:scale-105">
+              <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-violet-500/30 blur-3xl" />
+              <div className="absolute -bottom-12 -left-12 h-32 w-32 rounded-full bg-fuchsia-500/30 blur-3xl" />
+              <div className="absolute top-4 right-4 flex items-center gap-1.5">
+                <Crown className="h-4 w-4 text-amber-400" />
+                <span className="rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 px-3 py-1 text-xs font-semibold text-white shadow-lg">Premium</span>
               </div>
+              <h3 className="mb-2 text-xl font-semibold">Premium Plan</h3>
               <div className="mb-6">
-                <span className="text-4xl font-bold">₹375</span>
-                <span className="text-white/60"> + ₹80 first month</span>
+                <span className="text-4xl font-bold bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">₹375</span>
+                <span className="text-white/60">/month</span>
                 <p className="mt-1 text-sm text-white/50">₹75/month maintenance</p>
               </div>
               <ul className="mb-8 space-y-3 text-sm text-white/70">
-                <li className="flex items-center gap-2">
-                  <Star className="h-3 w-3 text-violet-400" />
+                <li className="flex items-center gap-3">
+                  <Star className="h-4 w-4 text-violet-400 flex-shrink-0" />
                   Custom domain
                 </li>
-                <li className="flex items-center gap-2">
-                  <Star className="h-3 w-3 text-violet-400" />
+                <li className="flex items-center gap-3">
+                  <Star className="h-4 w-4 text-violet-400 flex-shrink-0" />
                   Advanced premium design
                 </li>
-                <li className="flex items-center gap-2">
-                  <Star className="h-3 w-3 text-violet-400" />
+                <li className="flex items-center gap-3">
+                  <Star className="h-4 w-4 text-violet-400 flex-shrink-0" />
                   Database support
                 </li>
-                <li className="flex items-center gap-2">
-                  <Star className="h-3 w-3 text-violet-400" />
+                <li className="flex items-center gap-3">
+                  <Star className="h-4 w-4 text-violet-400 flex-shrink-0" />
                   Highest priority delivery
+                </li>
+                <li className="flex items-center gap-3">
+                  <Star className="h-4 w-4 text-violet-400 flex-shrink-0" />
+                  Unlimited pages website
+                </li>
+                <li className="flex items-center gap-3">
+                  <Star className="h-4 w-4 text-violet-400 flex-shrink-0" />
+                  Advanced SEO optimization
+                </li>
+                <li className="flex items-center gap-3">
+                  <Star className="h-4 w-4 text-violet-400 flex-shrink-0" />
+                  Login / signup system
+                </li>
+                <li className="flex items-center gap-3">
+                  <Star className="h-4 w-4 text-violet-400 flex-shrink-0" />
+                  Performance optimization
+                </li>
+                <li className="flex items-center gap-3">
+                  <Star className="h-4 w-4 text-violet-400 flex-shrink-0" />
+                  Custom animations & effects
+                </li>
+                <li className="flex items-center gap-3">
+                  <Star className="h-4 w-4 text-violet-400 flex-shrink-0" />
+                  E-commerce support (basic)
+                </li>
+                <li className="flex items-center gap-3">
+                  <Star className="h-4 w-4 text-violet-400 flex-shrink-0" />
+                  API integrations
+                </li>
+                <li className="flex items-center gap-3">
+                  <Star className="h-4 w-4 text-violet-400 flex-shrink-0" />
+                  3-5 revisions
+                </li>
+                <li className="flex items-center gap-3">
+                  <Star className="h-4 w-4 text-violet-400 flex-shrink-0" />
+                  24/7 priority support
+                </li>
+                <li className="flex items-center gap-3">
+                  <Star className="h-4 w-4 text-violet-400 flex-shrink-0" />
+                  Free maintenance for 1 month
                 </li>
               </ul>
               <Link
                 href="#contact"
-                className="block w-full rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 py-3 text-center font-medium transition-all hover:from-violet-400 hover:to-fuchsia-400 hover:shadow-lg hover:shadow-violet-500/25"
+                className="block w-full rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 py-3 text-center font-medium transition-all duration-300 hover:from-violet-400 hover:to-fuchsia-400 hover:shadow-lg hover:shadow-violet-500/25"
               >
                 Get Started
               </Link>
@@ -369,30 +464,70 @@ export default function MainPage() {
               cloudspace098@gmail.com
             </a>
           </div>
-          <form className="mx-auto max-w-lg space-y-4" onSubmit={(e) => e.preventDefault()}>
+          <form className="mx-auto max-w-lg space-y-4" onSubmit={handleSubmit}>
             <input
               type="text"
               placeholder="Name"
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/50"
+              required
             />
             <input
               type="email"
               placeholder="Email"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/50"
+              required
             />
             <textarea
               placeholder="Message"
               rows={4}
+              value={formData.message}
+              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               className="w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/50"
+              required
             />
             <button
               type="submit"
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 py-3 font-medium transition-all hover:from-violet-400 hover:to-fuchsia-400 hover:shadow-lg hover:shadow-violet-500/25"
+              disabled={formStatus === "loading"}
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 py-3 font-medium transition-all hover:from-violet-400 hover:to-fuchsia-400 hover:shadow-lg hover:shadow-violet-500/25 disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              <Send className="h-4 w-4" />
-              Send Request
+              {formStatus === "loading" ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Sending...
+                </>
+              ) : (
+                <>
+                  <Send className="h-4 w-4" />
+                  Send Request
+                </>
+              )}
             </button>
+            
+            {/* Status messages */}
+            {formStatus === "success" && (
+              <p className="text-center text-sm text-emerald-400">
+                Request sent successfully! We&apos;ll get back to you soon.
+              </p>
+            )}
+            {formStatus === "error" && (
+              <p className="text-center text-sm text-red-400">
+                Failed to send request. Please try again or contact cloudspace098@gmail.com
+              </p>
+            )}
           </form>
+          
+          {/* How was your experience rating */}
+          <div className="mt-12 flex flex-col items-center gap-4">
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/40">
+              How was your experience?
+            </p>
+            <RatingInteraction />
+            <div className="mt-4 h-px w-24 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+          </div>
         </div>
       </section>
 
