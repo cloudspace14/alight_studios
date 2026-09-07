@@ -2,8 +2,30 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
+import { motion } from "framer-motion"
 import { Rocket, Palette, Mail, Send, ArrowRight } from "lucide-react"
 import { LiquidButton } from "@/components/ui/liquid-glass-button"
+
+type ElegantShapeProps = {
+  delay: number
+  width: number
+  height: number
+  rotate: number
+  gradient: string
+  className?: string
+}
+
+function ElegantShape({ delay, width, height, rotate, gradient, className = "" }: ElegantShapeProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -150, rotate: rotate - 15 }}
+      animate={{ opacity: 1, y: 0, rotate }}
+      transition={{ duration: 2.4, delay, ease: [0.23, 1, 0.32, 1] }}
+      style={{ width, height }}
+      className={`absolute rounded-full bg-gradient-to-r ${gradient} blur-2xl ${className}`}
+    />
+  )
+}
 
 export default function MainPage() {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -193,7 +215,6 @@ export default function MainPage() {
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               required
               className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/50"
-              required
             />
             <input
               type="email"
@@ -202,7 +223,6 @@ export default function MainPage() {
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               required
               className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/50"
-              required
             />
             <textarea
               placeholder="Message"
@@ -229,15 +249,6 @@ export default function MainPage() {
               <p className="text-center text-sm text-red-400">Failed to send message. Please try again or email us directly.</p>
             )}
           </form>
-          
-          {/* How was your experience rating */}
-          <div className="mt-12 flex flex-col items-center gap-4">
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/40">
-              How was your experience?
-            </p>
-            <RatingInteraction />
-            <div className="mt-4 h-px w-24 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-          </div>
         </div>
       </section>
 
