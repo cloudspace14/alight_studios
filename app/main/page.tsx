@@ -57,7 +57,7 @@ export default function MainPage() {
             Welcome to <span className="bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">Alight Studios</span>
           </h1>
           <p className="mx-auto mb-8 max-w-2xl text-lg text-white/60">
-            We build professional websites for businesses that want to grow online.
+            Check our recent projects down below!
           </p>
           <Link href="#pricing">
             <LiquidButton size="lg" className="text-white border border-white/20 rounded-full">
@@ -68,28 +68,27 @@ export default function MainPage() {
         </div>
       </section>
 
-      {/* Services Section */}
+      {/* Projects Intro Section */}
       <section className="px-6 py-24">
         <div className="mx-auto max-w-6xl">
-          <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl">What We Offer</h2>
+          <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl">Our Projects</h2>
           <p className="mx-auto mb-16 max-w-2xl text-center text-white/60">
-            Comprehensive web solutions tailored to your business needs
+            Android-only tools and games created by Alight Studios
           </p>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 md:grid-cols-2">
             {[
-              { icon: Globe, title: "Full Website Creation", desc: "Complete end-to-end website development from concept to launch" },
-              { icon: Layout, title: "Business Websites", desc: "Professional sites that establish credibility and drive conversions" },
-              { icon: Smartphone, title: "Responsive Design", desc: "Pixel-perfect layouts that work flawlessly on all devices" },
-              { icon: Zap, title: "Performance Optimization", desc: "Lightning-fast load times for better user experience and SEO" },
-            ].map((service, i) => (
+              { icon: Rocket, title: "Looming Heights", desc: "A 2D mobile platformer set in the sky, where you solve challenging levels.", href: "/projects/looming-heights" },
+              { icon: Palette, title: "Just Draw", desc: "A camera tracing tool that lets you place a photo on screen and draw over it.", href: "/projects/just-draw" },
+            ].map((project, i) => (
               <div
                 key={i}
                 className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all duration-300 hover:border-violet-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-violet-500/10"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-violet-600/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-                <service.icon className="relative mb-4 h-10 w-10 text-violet-400 transition-transform group-hover:scale-110" />
-                <h3 className="relative mb-2 text-lg font-semibold">{service.title}</h3>
-                <p className="relative text-sm text-white/60">{service.desc}</p>
+                <project.icon className="relative mb-4 h-10 w-10 text-violet-400 transition-transform group-hover:scale-110" />
+                <h3 className="relative mb-2 text-lg font-semibold">{project.title}</h3>
+                <p className="relative text-sm text-white/60">{project.desc}</p>
+                <Link href={project.href} className="relative mt-5 inline-block text-sm text-violet-300 hover:text-white">View project →</Link>
               </div>
             ))}
           </div>
@@ -99,9 +98,9 @@ export default function MainPage() {
       {/* Pricing Section */}
       <section id="pricing" className="px-6 py-24 bg-gradient-to-b from-transparent via-violet-950/10 to-transparent">
         <div className="mx-auto max-w-6xl">
-          <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl">Simple Pricing</h2>
+          <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl">Explore Our Projects</h2>
           <p className="mx-auto mb-16 max-w-2xl text-center text-white/60">
-            Transparent pricing with no hidden fees
+            Discover our Android game and creative tool, built by Alight Studios.
           </p>
           <div className="grid gap-8 md:grid-cols-3">
             {/* Basic Plan */}
@@ -213,20 +212,19 @@ export default function MainPage() {
       {/* Portfolio Section */}
       <section className="px-6 py-24">
         <div className="mx-auto max-w-6xl">
-          <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl">Our Work</h2>
+          <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl">Our Projects</h2>
           <p className="mx-auto mb-16 max-w-2xl text-center text-white/60">
             A showcase of our recent projects
           </p>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {[
-              { title: "Tech Startup", tag: "Startup", color: "from-blue-500/20 to-cyan-500/20" },
-              { title: "Local Business", tag: "Business", color: "from-amber-500/20 to-orange-500/20" },
-              { title: "Creative Portfolio", tag: "Portfolio", color: "from-violet-500/20 to-fuchsia-500/20" },
-              { title: "E-Commerce Store", tag: "Business", color: "from-emerald-500/20 to-teal-500/20" },
+              { title: "Looming Heights", tag: "Android Game", color: "from-blue-500/20 to-cyan-500/20", href: "/projects/looming-heights" },
+              { title: "Just Draw", tag: "Android Tool", color: "from-violet-500/20 to-fuchsia-500/20", href: "/projects/just-draw" },
             ].map((project, i) => (
-              <div
+              <Link
                 key={i}
-                className="group relative aspect-video cursor-pointer overflow-hidden rounded-2xl border border-white/10 bg-white/5"
+                href={project.href}
+                className="group relative block aspect-video cursor-pointer overflow-hidden rounded-2xl border border-white/10 bg-white/5"
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${project.color} transition-transform duration-500 group-hover:scale-110`} />
                 <div className="absolute inset-0 flex flex-col items-center justify-center p-6 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
@@ -235,16 +233,16 @@ export default function MainPage() {
                 <div className="absolute bottom-4 left-4">
                   <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium backdrop-blur-sm">{project.tag}</span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
+      {/* Built by Alight Studios Section */}
       <section className="px-6 py-24 bg-gradient-to-b from-transparent via-violet-950/10 to-transparent">
         <div className="mx-auto max-w-6xl">
-          <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl">Why Choose Us</h2>
+          <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl">Built by Alight Studios</h2>
           <p className="mx-auto mb-16 max-w-2xl text-center text-white/60">
             What sets Alight Studios apart
           </p>
@@ -330,7 +328,7 @@ export default function MainPage() {
         <div className="absolute -left-40 top-0 h-80 w-80 rounded-full bg-violet-500/30 blur-[100px]" />
         <div className="absolute -right-40 bottom-0 h-80 w-80 rounded-full bg-fuchsia-500/30 blur-[100px]" />
         <div className="relative z-10 text-center">
-          <h2 className="mb-6 text-3xl font-bold md:text-5xl">Ready to Build Your Website?</h2>
+          <h2 className="mb-6 text-3xl font-bold md:text-5xl">Ready to explore our projects?</h2>
           <Link href="#contact">
             <LiquidButton size="xl" className="text-white border border-white/20 rounded-full">
               Start Now
@@ -344,7 +342,7 @@ export default function MainPage() {
       <footer className="border-t border-white/10 px-6 py-12">
         <div className="mx-auto max-w-6xl text-center">
           <p className="mb-4 text-sm text-white/40">
-            This website is created by Palla Sai Krishna (Developer) and Vakkalagedda Pardhu (Entrepreneur)
+            This website is created by Palla Sai Krishna (Owner)
           </p>
           <a href="mailto:cloudspace098@gmail.com" className="text-sm text-white/60 transition-colors hover:text-white">
             cloudspace098@gmail.com

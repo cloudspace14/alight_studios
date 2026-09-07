@@ -12,7 +12,7 @@ export default function Home() {
             This is alight Studios
           </h1>
           <p className="text-white/60 px-6 text-center text-xs md:text-sm lg:text-lg">
-            Expand your business by creating a website with us, just Explain and we'll take care.
+            Check out our latest development projects
           </p>
           <div className="my-8 flex items-center justify-center gap-1">
             <span className="relative flex h-3 w-3 items-center justify-center">
