@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
-import { Globe, Layout, Smartphone, Zap, Rocket, DollarSign, Palette, TrendingUp, Mail, Send, ArrowRight, Star } from "lucide-react"
+import { Rocket, Palette, Mail, Send, ArrowRight } from "lucide-react"
 import { LiquidButton } from "@/components/ui/liquid-glass-button"
 
 export default function MainPage() {
@@ -59,7 +59,7 @@ export default function MainPage() {
           <p className="mx-auto mb-8 max-w-2xl text-lg text-white/60">
             Check our recent projects down below!
           </p>
-          <Link href="#pricing">
+          <Link href="#projects">
             <LiquidButton size="lg" className="text-white border border-white/20 rounded-full">
               Get Started
               <ArrowRight className="h-4 w-4" />
@@ -69,7 +69,7 @@ export default function MainPage() {
       </section>
 
       {/* Projects Intro Section */}
-      <section className="px-6 py-24">
+      <section id="projects" className="px-6 py-24">
         <div className="mx-auto max-w-6xl">
           <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl">Our Projects</h2>
           <p className="mx-auto mb-16 max-w-2xl text-center text-white/60">
@@ -91,120 +91,6 @@ export default function MainPage() {
                 <Link href={project.href} className="relative mt-5 inline-block text-sm text-violet-300 hover:text-white">View project →</Link>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing Section */}
-      <section id="pricing" className="px-6 py-24 bg-gradient-to-b from-transparent via-violet-950/10 to-transparent">
-        <div className="mx-auto max-w-6xl">
-          <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl">Explore Our Projects</h2>
-          <p className="mx-auto mb-16 max-w-2xl text-center text-white/60">
-            Discover our Android game and creative tool, built by Alight Studios.
-          </p>
-          <div className="grid gap-8 md:grid-cols-3">
-            {/* Basic Plan */}
-            <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-8 transition-all hover:border-white/20">
-              <h3 className="mb-2 text-xl font-semibold">Basic Plan</h3>
-              <div className="mb-6">
-                <span className="text-4xl font-bold">₹250</span>
-                <span className="text-white/60"> one-time</span>
-              </div>
-              <ul className="mb-8 space-y-3 text-sm text-white/70">
-                <li className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-white/40" />
-                  Subdomain only
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-white/40" />
-                  Basic design
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-white/40" />
-                  No database
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-white/40" />
-                  Normal delivery speed
-                </li>
-              </ul>
-              <Link href="#contact" className="block">
-                <LiquidButton size="lg" className="w-full text-white border border-white/20 rounded-full">
-                  Get Started
-                </LiquidButton>
-              </Link>
-            </div>
-
-            {/* Pro Plan */}
-            <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-8 transition-all hover:border-white/20">
-              <h3 className="mb-2 text-xl font-semibold">Pro Plan</h3>
-              <div className="mb-6">
-                <span className="text-4xl font-bold">₹250</span>
-                <span className="text-white/60"> + ₹75 first month</span>
-                <p className="mt-1 text-sm text-white/50">₹60/month maintenance</p>
-              </div>
-              <ul className="mb-8 space-y-3 text-sm text-white/70">
-                <li className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-violet-400" />
-                  Custom domain support
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-violet-400" />
-                  Database integration
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-violet-400" />
-                  Faster delivery priority
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-violet-400" />
-                  Professional design
-                </li>
-              </ul>
-              <Link href="#contact" className="block">
-                <LiquidButton size="lg" className="w-full text-white border border-white/20 rounded-full">
-                  Get Started
-                </LiquidButton>
-              </Link>
-            </div>
-
-            {/* Premium Plan */}
-            <div className="group relative overflow-hidden rounded-2xl border-2 border-violet-500/50 bg-gradient-to-b from-violet-950/30 to-violet-950/10 p-8 shadow-xl shadow-violet-500/20 transition-all hover:border-violet-400/70 hover:shadow-violet-500/30">
-              <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-violet-500/20 blur-3xl" />
-              <div className="absolute -bottom-8 -left-8 h-24 w-24 rounded-full bg-fuchsia-500/20 blur-3xl" />
-              <div className="mb-4 flex items-center gap-2">
-                <h3 className="text-xl font-semibold">Premium Plan</h3>
-                <span className="rounded-full bg-violet-500/20 px-3 py-1 text-xs font-medium text-violet-300">Popular</span>
-              </div>
-              <div className="mb-6">
-                <span className="text-4xl font-bold">₹375</span>
-                <span className="text-white/60"> + ₹80 first month</span>
-                <p className="mt-1 text-sm text-white/50">₹75/month maintenance</p>
-              </div>
-              <ul className="mb-8 space-y-3 text-sm text-white/70">
-                <li className="flex items-center gap-2">
-                  <Star className="h-3 w-3 text-violet-400" />
-                  Custom domain
-                </li>
-                <li className="flex items-center gap-2">
-                  <Star className="h-3 w-3 text-violet-400" />
-                  Advanced premium design
-                </li>
-                <li className="flex items-center gap-2">
-                  <Star className="h-3 w-3 text-violet-400" />
-                  Database support
-                </li>
-                <li className="flex items-center gap-2">
-                  <Star className="h-3 w-3 text-violet-400" />
-                  Highest priority delivery
-                </li>
-              </ul>
-              <Link href="#contact" className="block">
-                <LiquidButton size="lg" className="w-full text-white bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-full">
-                  Get Started
-                </LiquidButton>
-              </Link>
-            </div>
           </div>
         </div>
       </section>
@@ -234,32 +120,6 @@ export default function MainPage() {
                   <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium backdrop-blur-sm">{project.tag}</span>
                 </div>
               </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Built by Alight Studios Section */}
-      <section className="px-6 py-24 bg-gradient-to-b from-transparent via-violet-950/10 to-transparent">
-        <div className="mx-auto max-w-6xl">
-          <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl">Built by Alight Studios</h2>
-          <p className="mx-auto mb-16 max-w-2xl text-center text-white/60">
-            What sets Alight Studios apart
-          </p>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {[
-              { icon: Rocket, title: "Fast Delivery", desc: "Quick turnaround without compromising quality" },
-              { icon: DollarSign, title: "Affordable Pricing", desc: "Competitive rates for every budget" },
-              { icon: Palette, title: "Modern Design", desc: "Premium aesthetics that stand out" },
-              { icon: TrendingUp, title: "Business Growth", desc: "Built to help your business succeed" },
-            ].map((item, i) => (
-              <div key={i} className="text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20">
-                  <item.icon className="h-8 w-8 text-violet-400" />
-                </div>
-                <h3 className="mb-2 font-semibold">{item.title}</h3>
-                <p className="text-sm text-white/60">{item.desc}</p>
-              </div>
             ))}
           </div>
         </div>
