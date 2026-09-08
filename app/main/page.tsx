@@ -148,6 +148,7 @@ export default function MainPage() {
             {[
               { icon: Rocket, title: "Looming Heights", desc: "A 2D mobile platformer set in the sky, where you solve challenging levels.", href: "/projects/looming-heights" },
               { icon: Palette, title: "Just Draw", desc: "A camera tracing tool that lets you place a photo on screen and draw over it.", href: "/projects/just-draw" },
+              { icon: Rocket, title: "Just QR", desc: "An Android QR creator, designer, and camera scanner with high-resolution exports.", href: "/projects/just-qr" },
             ].map((project, i) => (
               <div
                 key={i}
@@ -175,6 +176,7 @@ export default function MainPage() {
             {[
               { title: "Looming Heights", tag: "Android Game", color: "from-blue-500/20 to-cyan-500/20", href: "/projects/looming-heights" },
               { title: "Just Draw", tag: "Android Tool", color: "from-violet-500/20 to-fuchsia-500/20", href: "/projects/just-draw" },
+              { title: "Just QR", tag: "Android Tool", color: "from-emerald-500/20 to-cyan-500/20", href: "/projects/just-qr" },
             ].map((project, i) => (
               <Link
                 key={i}

@@ -7,7 +7,7 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Alight Studios - Web Development',
+  title: 'Alight Studios - Android Projects',
   description: 'We build professional websites for businesses that want to grow online. Expand your business by creating a website with us.',
   generator: 'v0.app',
   icons: {
@@ -21,8 +21,8 @@ export const metadata: Metadata = {
         media: '(prefers-color-scheme: dark)',
       },
       {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
+        url: '/alight-logo.jpg',
+        type: 'image/jpeg',
       },
     ],
     apple: '/apple-icon.png',
